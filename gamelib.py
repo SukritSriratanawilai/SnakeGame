@@ -7,13 +7,31 @@ class SimpleGame(object):
         self.title = title
         self.window_size = window_size
         self.fps = fps
- 
+        self.is_terminated = False
+    
+    def terminated(self):
+            self.is_terminated = True
+
+    def __handle_events(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                self.terminate()
+            #if pygame.key.get_pressed()[K_UP]:
+            #    self.on_key_up(KEYUP)
+            #if pygame.key.get_pressed()[K_DOWN]:
+            #    self.on_key_down(KEYDOWN)
+            #if pygame.key.get_pressed()[K_LEFT]:
+            #    self.on_key_left(KEYLEFT)
+            #if pygame.key.get_pressed()[K_RIGHT]:
+            #    self.on_key_right(KEYRIGHT)        
+
     def run(self):
         self.init()
-        while True:
+        while not self.is_terminated:
             self.update()
             self.render()
             self.clock.tick(self.fps)
+            self.__handle_events()
     
     def __game_init(self):
         pygame.init()
@@ -29,4 +47,16 @@ class SimpleGame(object):
         pass
  
     def render(self):
+        pass
+
+    def on_key_up(self, key):
+        pass
+ 
+    def on_key_down(self, key):
+        pass
+
+    def on_key_left(self, key):
+        pass
+ 
+    def on_key_right(self, key):
         pass
