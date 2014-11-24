@@ -2,11 +2,16 @@ import pygame
 from pygame.locals import *
  
 class SimpleGame(object):
- 
-    def __init__(self, title, window_size = (640,480), fps=60):
+    
+    def __init__(self,
+                 title,
+                 background_color,
+                 window_size=(640,480),
+                 fps = 60):
         self.title = title
         self.window_size = window_size
         self.fps = fps
+        self.background_color = background_color
         self.is_terminated = False
     
     def terminated(self):
@@ -15,23 +20,21 @@ class SimpleGame(object):
     def __handle_events(self):
         for event in pygame.event.get():
             if event.type == QUIT:
-                self.terminate()
-            #if pygame.key.get_pressed()[K_UP]:
-            #    self.on_key_up(KEYUP)
-            #if pygame.key.get_pressed()[K_DOWN]:
-            #    self.on_key_down(KEYDOWN)
-            #if pygame.key.get_pressed()[K_LEFT]:
-            #    self.on_key_left(KEYLEFT)
-            #if pygame.key.get_pressed()[K_RIGHT]:
-            #    self.on_key_right(KEYRIGHT)        
+                self.terminate()       
 
     def run(self):
         self.init()
         while not self.is_terminated:
-            self.update()
-            self.render()
-            self.clock.tick(self.fps)
             self.__handle_events()
+
+            self.update()
+
+            self.surface.fill(self.background_color)
+            self.render(self.surface)
+            pygame.display.update()
+            
+            self.clock.tick(self.fps)   
+            
     
     def __game_init(self):
         pygame.init()
@@ -46,17 +49,11 @@ class SimpleGame(object):
     def update(self):
         pass
  
-    def render(self):
+    def render(self, surface):
         pass
 
     def on_key_up(self, key):
         pass
  
     def on_key_down(self, key):
-        pass
-
-    def on_key_left(self, key):
-        pass
- 
-    def on_key_right(self, key):
         pass
