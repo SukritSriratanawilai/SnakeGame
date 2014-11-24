@@ -20,7 +20,11 @@ class SimpleGame(object):
     def __handle_events(self):
         for event in pygame.event.get():
             if event.type == QUIT:
-                self.terminate()       
+                self.terminate() 
+            elif event.type == KEYDOWN:
+                self.on_key_down(event.key)
+            elif event.type ==KEYUP:
+                self.on_key_up(event.key)      
 
     def run(self):
         self.init()
@@ -42,6 +46,12 @@ class SimpleGame(object):
         self.surface = pygame.display.set_mode(self.window_size)
         pygame.display.set_caption(self.title)
         self.font = pygame.font.SysFont("monospace", 20)
+
+    def is_key_pressed(self, key):
+        key_pressed = pygame.key.get_pressed()
+        if key < 0 or key >= len(keys_pressed):
+            return False
+        return (keys_pressed[key])
 
     def init(self):
         self.__game_init()

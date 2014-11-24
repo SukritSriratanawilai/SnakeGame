@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from gamelib import SimpleGame
-from elements import Ball
+from elements import *
 
 class SquashGame(SimpleGame):
     BLACK = pygame.Color('black')
@@ -15,16 +15,23 @@ class SquashGame(SimpleGame):
                          pos=(self.window_size[0]/2,
                               self.window_size[1]/2), 
                          speed=(200,50))
+        self.Player = Player(pos = 100,
+                             color = SquashGame.GREEN)
 
     def init(self):
         super(SquashGame, self).init()
 
     def update(self):
-        super(SquashGame, self).update() 
+        self.Ball.move(1./self.fps, self.surface)
+
+        if pygame.key.get_pressed()[K_UP]:
+            self.Player.move_up()
+        elif pygame.key.get_pressed()[K_DOWN]:
+            self.Player.move_down()
 
     def render(self, surface):
-        #super(SquashGame).render()
         self.Ball.render(surface)
+        self.Player.render(surface)
 
     
     
